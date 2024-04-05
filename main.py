@@ -7,3 +7,4 @@ def titulo():
 
 titulo()
 criar_login()
+print("Cadastrado com sucesso!")
