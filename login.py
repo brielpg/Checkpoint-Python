@@ -4,39 +4,56 @@ import re
 def criar_login():
     print("Crie sua conta seguindo os passos a seguir\n")
 
-    forma_de_login = str(input("Como gostaria de se registrar: "
-                               "\n1. EMAIL"
-                               "\n2. Nome de Usuário"
-                               "\n3. CPF"
-                               "\n4. RG"
-                               "\nOpção: "))
+    while True:
+        forma_de_login = str(input("Como gostaria de se registrar: "
+                                   "\n1. EMAIL"
+                                   "\n2. Nome de Usuário"
+                                   "\n3. CPF"
+                                   "\n4. RG"
+                                   "\nOpção: ")).lower()
 
-    if forma_de_login == '1' or forma_de_login == 'email':
-        email = str(input("Email (xxxxx@yyy.zzz): "))
-        email = verificar_email_valido(email)
+        if forma_de_login == '1' or forma_de_login == 'email':
+            email = str(input("Email (xxxxx@yyy.zzz): "))
+            email = verificar_email_valido(email)
+            login = email
+            break
 
-    elif forma_de_login == '2' or forma_de_login == 'nome de usuario':
-        print("\n- Nomes de usuário devem apenas conter caracteres alfabéticos e numéricos. A única exceção para caractere especial é o caractere “_”\n")
-        usuario = str(input("Nome de usuário: "))
-        usuario = verificar_nome_usuario_valido(usuario)
+        elif forma_de_login == '2' or forma_de_login == 'nome de usuario':
+            print("\n- Nomes de usuário devem apenas conter caracteres alfabéticos e numéricos. A única exceção para caractere especial é o caractere “_”\n")
+            usuario = str(input("Nome de usuário: "))
+            usuario = verificar_nome_usuario_valido(usuario)
+            login = usuario
+            break
 
-    elif forma_de_login == '3' or forma_de_login == 'cpf':
-        cpf = str(input("CPF (XXX.XXX.XXX-XX ou XXXXXXXXXXX): "))
-        cpf = verificar_cpf_valido(cpf)
+        elif forma_de_login == '3' or forma_de_login == 'cpf':
+            cpf = str(input("CPF (XXX.XXX.XXX-XX ou XXXXXXXXXXX): "))
+            cpf = verificar_cpf_valido(cpf)
+            login = cpf
+            break
 
-    elif forma_de_login == '4' or forma_de_login == 'rg':
-        rg = str(input("RG (XX.XXX.XXX-X ou XXXXXXXXX): "))
-        rg = verificar_rg_valido(rg)
+        elif forma_de_login == '4' or forma_de_login == 'rg':
+            rg = str(input("RG (XX.XXX.XXX-X ou XXXXXXXXX): "))
+            rg = verificar_rg_valido(rg)
+            login = rg
+            break
+
+        else:
+            print("Valor Inválido, tente novamente\n")
 
     print("\n- Senha deverá conter ao menos 12 caracteres e ser composta por pelo menos 2 caracteres de cada tipo."
           "\n\tNumérico: 0-9"
           "\n\tAlfabético maiúsculo: A-Z"
           "\n\tAlfabético minúsculo: a-z"
           "\n\tEspeciais: !@#$%&*()[]{};,.:/\|\n")
+
     senha = str(input("Senha: "))
     senha = verificar_senha_valida(senha)
 
+    return login, senha
 
+#                           #
+#       VERIFICACOES        #
+#                           #
 def verificar_senha_valida(senha):
     valida = False
     numeros = 0
@@ -58,8 +75,7 @@ def verificar_senha_valida(senha):
         valida = True
 
     if not valida:
-        print(
-            "Senha inválida! Sua senha deve conter ao menos 12 caracteres e ser composta por pelo menos 2 caracteres de cada tipo.")
+        print("Senha inválida! Sua senha deve conter ao menos 12 caracteres e ser composta por pelo menos 2 caracteres de cada tipo.")
         senha = str(input("Senha: "))
         return verificar_senha_valida(senha)
     else:
@@ -68,6 +84,13 @@ def verificar_senha_valida(senha):
 
 
 def verificar_email_valido(email):
+    # Explicacao da expressao regular:
+    # 1. ^: Início da string, $: Final da string, +: Indica que deve haver pelo menos um desses caracteres na sequência;
+    # 2. [a-zA-Z0-9._%+-] corresponde aos caracteres aceitos que podem ser letras maiúsculas ou minúsculas (de A a Z),
+    #                     dígitos numéricos ou qualquer um dos caracteres especiais;
+    # 3. @[a-zA-Z0-9.-] deve ter um @ seguido de alguma sequencia de caracteres citados acima;
+    # 4. \.[a-zA-Z]{2,} deve haver um . seguido de alguma sequencia de caracteres citados acima.
+
     if re.match(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', email):
         print("Email válido.")
     else:
@@ -89,6 +112,15 @@ def verificar_nome_usuario_valido(usuario):
 
 
 def verificar_cpf_valido(cpf):
+    # Explicacao da expressao regular:
+    # 1. ^: Início da string, $: Final da string;
+    # 2. \d{3}  Indica que deve haver 3 dígitos numéricos;
+    # 3. \.     Indica que deve haver um ponto ".";
+    # 4. -      Indica que deve haver um hífen "-";
+    # 5. \d{2}  Indica que deve haver 2 dígitos numéricos;
+    # 6. |      Indica que há dois padroes separados por "|", e um dos dois deve ser correspondido;
+    # 7. \d{11} Indica que deve haver 11 dígitos numéricos;
+
     if re.match(r'^\d{3}\.\d{3}\.\d{3}-\d{2}$|^\d{11}$', cpf):
         print("CPF válido.")
     else:
@@ -99,6 +131,16 @@ def verificar_cpf_valido(cpf):
 
 
 def verificar_rg_valido(rg):
+    # Explicacao da expressao regular:
+    # 1. ^: Início da string, $: Final da string;
+    # 2. \d{2}  Indica que deve haver 2 dígitos numéricos;
+    # 3. \.     Indica que deve haver um ponto ".";
+    # 4. -      Indica que deve haver um hífen "-";
+    # 5. \d{3}  Indica que deve haver 3 dígitos numéricos;
+    # 6. \d{1}  Indica que deve haver 1 dígitos numéricos;
+    # 7. |      Indica que há dois padroes separados por "|" , e um dos dois deve ser correspondido;
+    # 8. \d{9}  Indica que deve haver 9 dígitos numéricos;
+
     if re.match(r'^\d{2}\.\d{3}\.\d{3}-\d{1}$|^\d{9}$', rg):
         print("RG válido.")
     else:
@@ -108,5 +150,19 @@ def verificar_rg_valido(rg):
     return rg
 
 
-def validar_login():
-    pass
+def validar_login_e_senha(login, senha, lista_de_logins):
+    login_valido = False
+    senha_valida = False
+
+    for j, i in enumerate(lista_de_logins):
+        if login == i[0]:
+            login_valido = True
+            if senha == i[1]:
+                senha_valida = True
+            else:
+                print("Login ou senha inválidos.")
+
+    if login_valido and senha_valida:
+        return True
+    else:
+        return False
