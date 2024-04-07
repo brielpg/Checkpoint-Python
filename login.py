@@ -6,7 +6,7 @@ def criar_login():
 
     while True:
         forma_de_login = str(input("Como gostaria de se registrar: "
-                                   "\n1. EMAIL"
+                                   "\n1. Email"
                                    "\n2. Nome de Usuário"
                                    "\n3. CPF"
                                    "\n4. RG"
@@ -19,7 +19,8 @@ def criar_login():
             break
 
         elif forma_de_login == '2' or forma_de_login == 'nome de usuario':
-            print("\n- Nomes de usuário devem apenas conter caracteres alfabéticos e numéricos. A única exceção para caractere especial é o caractere “_”\n")
+            print("\n- Nomes de usuário devem apenas conter caracteres alfabéticos e numéricos. A única exceção para"
+                  "caractere especial é o caractere “_”\n")
             usuario = str(input("Nome de usuário: "))
             usuario = verificar_nome_usuario_valido(usuario)
             login = usuario
@@ -51,6 +52,7 @@ def criar_login():
 
     return login, senha
 
+
 #                           #
 #       VERIFICACOES        #
 #                           #
@@ -75,7 +77,8 @@ def verificar_senha_valida(senha):
         valida = True
 
     if not valida:
-        print("Senha inválida! Sua senha deve conter ao menos 12 caracteres e ser composta por pelo menos 2 caracteres de cada tipo.")
+        print("Senha inválida! Sua senha deve conter ao menos 12 caracteres e ser composta por pelo menos 2 caracteres "
+              "de cada tipo.")
         senha = str(input("Senha: "))
         return verificar_senha_valida(senha)
     else:
@@ -137,11 +140,11 @@ def verificar_rg_valido(rg):
     # 3. \.     Indica que deve haver um ponto ".";
     # 4. -      Indica que deve haver um hífen "-";
     # 5. \d{3}  Indica que deve haver 3 dígitos numéricos;
-    # 6. \d{1}  Indica que deve haver 1 dígitos numéricos;
+    # 6. \d     Indica que deve haver 1 dígito numérico;
     # 7. |      Indica que há dois padroes separados por "|" , e um dos dois deve ser correspondido;
     # 8. \d{9}  Indica que deve haver 9 dígitos numéricos;
 
-    if re.match(r'^\d{2}\.\d{3}\.\d{3}-\d{1}$|^\d{9}$', rg):
+    if re.match(r'^\d{2}\.\d{3}\.\d{3}-\d$|^\d{9}$', rg):
         print("RG válido.")
     else:
         print("Formato de RG inválido.")
@@ -166,3 +169,106 @@ def validar_login_e_senha(login, senha, lista_de_logins):
         return True
     else:
         return False
+
+
+def atualizar_login_senha(lista_usuarios):
+    print("Antes de atualizar seus dados precisamos saber se é você mesmo (ou um administrador)")
+    login_do_usuario = input("Seu Login: ")
+    senha_do_usuario = input("Sua senha: ")
+
+    for i in lista_usuarios:
+        if i['login'] == login_do_usuario and i['senha'] == senha_do_usuario:
+            print("Login realizado com sucesso!")
+
+            if i['role'] == "admin":
+                trocar_login_usuario = str(input("Login do usuário que deseja alterar: "))
+                for n in lista_usuarios:
+                    if n['login'] == trocar_login_usuario:
+                        alterar_adm = str(input("O que deseja alterar do usuário?"
+                                                "\n1- Login"
+                                                "\n2- Senha"
+                                                "\nOpçao: ")).lower()
+
+                        # LOGIN
+                        if alterar_adm == 'login' or alterar_adm == '1':
+                            forma_de_login = str(input("Qual formato de login deseja utilizar? "
+                                                       "\n1. Email"
+                                                       "\n2. Nome de Usuário"
+                                                       "\n3. CPF"
+                                                       "\n4. RG"
+                                                       "\nOpção: ")).lower()
+
+                            if forma_de_login == '1' or forma_de_login == 'email':
+                                email = str(input("Email (xxxxx@yyy.zzz): "))
+                                email = verificar_email_valido(email)
+                                n['login'] = email
+
+                            elif forma_de_login == '2' or forma_de_login == 'nome de usuario':
+                                print("\n- Nomes de usuário devem apenas conter caracteres alfabéticos e numéricos."
+                                      "A única exceção para caractere especial é o caractere “_”\n")
+                                usuario = str(input("Nome de usuário: "))
+                                usuario = verificar_nome_usuario_valido(usuario)
+                                n['login'] = usuario
+
+                            elif forma_de_login == '3' or forma_de_login == 'cpf':
+                                cpf = str(input("CPF (XXX.XXX.XXX-XX ou XXXXXXXXXXX): "))
+                                cpf = verificar_cpf_valido(cpf)
+                                n['login'] = cpf
+
+                            elif forma_de_login == '4' or forma_de_login == 'rg':
+                                rg = str(input("RG (XX.XXX.XXX-X ou XXXXXXXXX): "))
+                                rg = verificar_rg_valido(rg)
+                                n['login'] = rg
+
+                                # SENHA
+                        elif alterar_adm == "senha" or alterar_adm == '2':
+                            for j in lista_usuarios:
+                                if j['login'] == trocar_login_usuario:
+                                    nova_senha_adm = str(input("Digite sua nova senha: "))
+                                    nova_senha = verificar_senha_valida(nova_senha_adm)
+                                    if nova_senha:
+                                        j['senha'] = nova_senha
+            else:
+                opcao = str(input("O que deseja alterar?"
+                                  "\n1. Login"
+                                  "\n2. Senha"
+                                  "\nOpcao: ")).lower()
+
+                if opcao == '1' or opcao == 'login':
+                    forma_de_loginn = str(input("Qual formato de login deseja utilizar? "
+                                                "\n1. Email"
+                                                "\n2. Nome de Usuário"
+                                                "\n3. CPF"
+                                                "\n4. RG"
+                                                "\nOpção: ")).lower()
+                    if forma_de_loginn == '1' or forma_de_loginn == 'email':
+                        email = str(input("Email (xxxxx@yyy.zzz): "))
+                        email = verificar_email_valido(email)
+                        i['senha'] = email
+
+                    elif forma_de_loginn == '2' or forma_de_loginn == 'nome de usuario':
+                        print("\n- Nomes de usuário devem apenas conter caracteres alfabéticos e numéricos."
+                              "A única exceção para caractere especial é o caractere “_”\n")
+                        usuario = str(input("Nome de usuário: "))
+                        usuario = verificar_nome_usuario_valido(usuario)
+                        i['senha'] = usuario
+
+                    elif forma_de_loginn == '3' or forma_de_loginn == 'cpf':
+                        cpf = str(input("CPF (XXX.XXX.XXX-XX ou XXXXXXXXXXX): "))
+                        cpf = verificar_cpf_valido(cpf)
+                        i['senha'] = cpf
+
+                    elif forma_de_loginn == '4' or forma_de_loginn == 'rg':
+                        rg = str(input("RG (XX.XXX.XXX-X ou XXXXXXXXX): "))
+                        rg = verificar_rg_valido(rg)
+                        i['senha'] = rg
+
+                elif opcao == '2' or opcao == 'senha':
+                    alterar_senha = str(input("Digite sua nova senha: "))
+                    nova_senha = verificar_senha_valida(alterar_senha)
+                    if nova_senha:
+                        i['senha'] = nova_senha
+
+
+def proteger_senha():
+    pass

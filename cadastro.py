@@ -1,27 +1,6 @@
 from login import validar_login_e_senha
 
 
-def menu_cadastro_de_usuario(lista_de_usuarios, lista_de_logins):
-    while True:
-        opcao = input("Oque gostaria de realizar?"
-                      "\n1. Cadastrar usuário"
-                      "\n2. Listar usuários"
-                      "\n3. Sair"
-                      "\nOpcao: ")
-
-        if opcao == '1':
-            cadastrar_usuario(lista_de_usuarios, lista_de_logins)
-        elif opcao == '2':
-            print("Lista de usuários")
-            for i in lista_de_usuarios: # Nao estou exibindo a senha e o role por questoes de segurança, pois nao faz sentido as pessoas conseguirem ver esses dados
-                print(i['login'])
-        elif opcao == '3':
-            print("Saindo do programa...")
-            break
-        else:
-            print("Opção inválida. Tente novamente.")
-
-
 def cadastrar_usuario(lista_usuarios, lista_de_loginss):
     print("Para cadastrar um novo usuário, precisamos verificar se você é um administrador\nPreencha as informacoes"
           "a seguir")
