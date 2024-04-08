@@ -270,5 +270,39 @@ def atualizar_login_senha(lista_usuarios):
                         i['senha'] = nova_senha
 
 
-def proteger_senha():
-    pass
+def hash(lista_usuarios):
+    for i in lista_usuarios:
+        senha_ord = ''
+
+        if isinstance(i['senha'], int):
+            i['senha'] = str(i['senha'])
+
+        for c in i['senha']:
+            senha_ord += str(ord(c))
+
+        num_primo = 97
+        hash_senha = int(senha_ord) % num_primo
+        i['senha'] = hash_senha
+        i['num_primo_utilizado'] = num_primo
+    print("Senhas protegidas com sucesso!")
+
+
+def hash_senha_digitada(senha):
+    senha_ord = ''
+
+    for c in senha:
+        senha_ord += str(ord(c))
+
+    num_primo = 97
+    return int(senha_ord) % num_primo
+
+
+def login_com_senha_protegida(lista_usuarios):
+    login = input("Digite o seu login: ")
+    senha = input("Digite a sua senha: ")
+    for i in lista_usuarios:
+        if i['login'] == login:
+            if i['senha'] == hash_senha_digitada(senha):
+                print("Login bem-sucedido!")
+            else:
+                print("Senha incorreta.")

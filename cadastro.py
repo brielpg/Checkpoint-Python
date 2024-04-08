@@ -26,3 +26,9 @@ def cadastrar_usuario(lista_usuarios, lista_de_loginss):
                         print("Usuário cadastrado com sucesso.")
                 else:
                     print("Usuário não cadastrado.")
+
+
+def encontrando_um_id_para_o_usuario(lista_usuarios):
+    for id_index, i in enumerate(lista_usuarios, 1):
+        i['user_id'] = id_index
+    print("ID adicionado para os usuários")
