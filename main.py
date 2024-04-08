@@ -32,12 +32,12 @@ def menu(lista_de_usuarios, lista_de_logins):
 
 
 lista_de_logins = [("user1", "abcABC123!@#"), ("user2", "abcABC123!@#")]
-lista_de_usuarios = [{"login": "Gabriel", "senha": "123-abc-ABC!", "role": "admin"},
-                     {"login": "Francisco", "senha": "FR4Nc1sc0-_-", "role": "user"},
-                     {"login": "Daniel", "senha": "deb3!ABE21_-", "role": "user"}]
+lista_de_usuarios = [{"login": "Teste1", "senha": "123-abc-ABC!", "role": "admin"},
+                     {"login": "Teste2", "senha": "FR4Nc1sc0-_-", "role": "user"},
+                     {"login": "Teste3", "senha": "deb3!ABE21_-", "role": "user"}]
 
 # USUARIO ADMINISTRADOR
-# USER: Gabriel
+# USER: Teste1
 # SENHA: 123-abc-ABC!
 
 while True:
