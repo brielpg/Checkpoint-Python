@@ -305,12 +305,12 @@ def hash_senha_digitada(senha):
 
 
 def login_com_senha_protegida(lista_usuarios):
-    login = input("\nDigite o seu login: ")
+    login = input("Digite o seu login: ")
     senha = input("Digite a sua senha: ")
     for i in lista_usuarios:
         if i['login'] == login:
             if i['senha'] == hash_senha_digitada(senha):
-                print("Login bem-sucedido!\n")
+                print("Login bem-sucedido!")
                 return login, senha, True
             else:
-                print("Senha incorreta.\n")
+                print("Senha incorreta.")

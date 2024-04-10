@@ -39,25 +39,27 @@ def menu(lista_d_usuarios, lista_d_logins):
             print("Opção inválida. Tente novamente.")
 
 
+# Já criei alguns usuários padroes para testes
+
 lista_de_logins = [("user1", "abc"), ("user2", "abcABC123!@#")]
-lista_de_usuarios = [{"login": "Teste1", "senha": "123-abc-ABC!", "role": "admin"},
-                     {"login": "Teste2", "senha": "FR4Nc1sc0-_-", "role": "user"},
-                     {"login": "Teste3", "senha": "deb3!ABE21_-", "role": "user"}]
+lista_de_usuarios = [{"login": "Gabriel", "senha": "123-abc-ABC!", "role": "admin"},
+                     {"login": "Francisco", "senha": "FR4Nc1sc0-_-", "role": "user"},
+                     {"login": "Daniel", "senha": "deb3!ABE21_-", "role": "user"}]
 
 # USUARIO ADMINISTRADOR
-# USER: Teste1
+# USER: Gabriel
 # SENHA: 123-abc-ABC!
 
 while True:
-    hash(lista_de_usuarios)  # já começo o programa protegendo as senhas existentes, por causa dos usuários que já temos
-                             # criados, para nao dar conflito no código
+    hash(lista_de_usuarios)  # já começo o programa protegendo as senhas existentes, por causa dos usuários testes que
+    # já temos criados.
 
     print("Seja Bem-vindo(a) ao programa!\n")
 
     #   1. CRIANDO O LOGIN
-    # login, senha = criar_login()
-    # lista_de_logins.append((login, senha))
-    # print("\nConta criada com sucesso!\n")
+    login, senha = criar_login()
+    lista_de_logins.append((login, senha))
+    print("\nConta criada com sucesso!\n")
     print()
 
     #   2. CADASTRANDO O USUARIO
@@ -86,10 +88,11 @@ while True:
     print("Banco de dados atualizado com sucesso.")
     print()
 
-    #   9. ENCONTRANDO O POKEMON DO USUARIO             TESTE
+    #   9. ENCONTRANDO O POKEMON DO USUARIO
     encontrando_pokemon_usuario(lista_de_usuarios)
     print()
 
-    #   10. ATUALIZANDO BANCO DE DADOS                  TESTE
+    #   10. ATUALIZANDO BANCO DE DADOS
     salvar_banco_dados(lista_de_usuarios)
     print("Banco de dados atualizado com sucesso.")
+    print()
