@@ -42,12 +42,12 @@ def menu(lista_d_usuarios, lista_d_logins):
 # Já criei alguns usuários padroes para testes
 
 lista_de_logins = [("user1", "abc"), ("user2", "abcABC123!@#")]
-lista_de_usuarios = [{"login": "Gabriel", "senha": "123-abc-ABC!", "role": "admin"},
-                     {"login": "Francisco", "senha": "FR4Nc1sc0-_-", "role": "user"},
-                     {"login": "Daniel", "senha": "deb3!ABE21_-", "role": "user"}]
+lista_de_usuarios = [{"login": "Teste1", "senha": "123-abc-ABC!", "role": "admin"},
+                     {"login": "Teste2", "senha": "FR4Nc1sc0-_-", "role": "user"},
+                     {"login": "Teste3", "senha": "deb3!ABE21_-", "role": "user"}]
 
 # USUARIO ADMINISTRADOR
-# USER: Gabriel
+# USER: Teste1
 # SENHA: 123-abc-ABC!
 
 while True:
